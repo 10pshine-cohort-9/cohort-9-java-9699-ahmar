@@ -1,0 +1,2 @@
+import{describe,it,expect,beforeEach}from'vitest';import{render,screen}from'@testing-library/react';import'@testing-library/jest-dom';import App from'./App';
+describe('App',()=>{beforeEach(()=>localStorage.clear());it('shows login screen to signed-out users',()=>{render(<App/>);expect(screen.getByRole('heading',{name:/welcome back/i})).toBeInTheDocument();expect(screen.getByRole('button',{name:/sign in/i})).toBeInTheDocument()})});

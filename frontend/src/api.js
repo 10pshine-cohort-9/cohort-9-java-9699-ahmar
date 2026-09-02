@@ -1,0 +1,3 @@
+const BASE=import.meta.env.VITE_API_URL||'http://localhost:8080/api';
+export const token=()=>localStorage.getItem('contactly_token');
+export async function api(path,options={}){const headers={'Content-Type':'application/json',...options.headers};if(token())headers.Authorization=`Bearer ${token()}`;const res=await fetch(BASE+path,{...options,headers});if(res.status===204)return null;const data=await res.json().catch(()=>({}));if(!res.ok){if(res.status===401&&token()){localStorage.removeItem('contactly_token');window.dispatchEvent(new Event('auth-expired'));}throw new Error(data.message||'Request failed');}return data;}
